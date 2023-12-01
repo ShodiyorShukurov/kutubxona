@@ -1,15 +1,27 @@
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
-import {Link, Sigend} from './styled'
 import "./signIn.scss";
+import useSignIn from "../../Hooks/useSignIn";
+import { FormControl } from "@mui/material";
 
 const SignIn = () => {
+  const {
+    handleSubmit,
+    name,
+    setName,
+    setEmail,
+    email,
+    password,
+    setPassword,
+    username,
+    setUsername,
+  } = useSignIn();
+
   return (
     <div className="sign-in">
       <div className="container">
@@ -17,9 +29,9 @@ const SignIn = () => {
           <Card sx={{ width: 430 }}>
             <CardContent>
               <Typography variant="h3" component="h3" textAlign="center">
-                Sign in
+                Sign up
               </Typography>
-              <Typography marginTop={5}>
+              <Typography marginTop={4}>
                 <Stack spacing={2} direction="row">
                   <Button
                     variant="outlined"
@@ -105,17 +117,20 @@ const SignIn = () => {
                 </Stack>
               </Typography>
               <Typography marginTop={4}>
-                <form action="">
+                <form onSubmit={(evt) => handleSubmit(evt)}>
                   <InputLabel htmlFor="outlined-basic">Your name</InputLabel>
-                  <TextField
-                    id="outlined-basic"
-                    placeholder="Enter your name"
-                    variant="outlined"
-                    sx={{ width: 374 }}
-                    name="name"
-                    required
-                  />
-                  <InputLabel htmlFor="email-basic" sx={{ marginTop: 3 }}>
+                  <FormControl>
+                    <TextField
+                      id="outlined-basic"
+                      placeholder="Enter your name"
+                      variant="outlined"
+                      sx={{ width: 374 }}
+                      value={name}
+                      onChange={(evt) => setName(evt.target.value)}
+                      required
+                    />
+                  </FormControl>
+                  <InputLabel htmlFor="email-basic" sx={{ marginTop: 2 }}>
                     Your email
                   </InputLabel>
                   <TextField
@@ -123,11 +138,12 @@ const SignIn = () => {
                     placeholder="Enter your email"
                     variant="outlined"
                     sx={{ width: 374 }}
-                    name="name"
+                    value={email}
+                    onChange={(evt) => setEmail(evt.target.value)}
                     type="email"
                     required
                   />
-                  <InputLabel htmlFor="username-basic" sx={{ marginTop: 3 }}>
+                  <InputLabel htmlFor="username-basic" sx={{ marginTop: 2 }}>
                     Your username
                   </InputLabel>
                   <TextField
@@ -135,7 +151,21 @@ const SignIn = () => {
                     placeholder=" Enter your username"
                     variant="outlined"
                     sx={{ width: 374 }}
-                    name="name"
+                    value={username}
+                    onChange={(evt) => setUsername(evt.target.value)}
+                    required
+                  />
+                  <InputLabel htmlFor="password-basic" sx={{ marginTop: 2 }}>
+                    Your password
+                  </InputLabel>
+                  <TextField
+                    id="password-basic"
+                    placeholder="Enter your password"
+                    variant="outlined"
+                    sx={{ width: 374 }}
+                    value={password}
+                    onChange={(evt) => setPassword(evt.target.value)}
+                    type="password"
                     required
                   />
                   <Button
@@ -144,17 +174,13 @@ const SignIn = () => {
                       marginTop: 3,
                     }}
                     variant="contained"
+                    type="submit"
                   >
                     Button
                   </Button>
                 </form>
               </Typography>
             </CardContent>
-            <CardActions sx={{ textAlign: "center" }}>
-              <Sigend>
-                Already signed up? <Link href="#">Go to sign in.</Link>
-              </Sigend>
-            </CardActions>
           </Card>
         </div>
       </div>
